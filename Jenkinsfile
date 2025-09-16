@@ -56,7 +56,7 @@ pipeline {
           stage('Stage-7 : Deployment') { 
             steps {
                 echo 'This stage Deploys an Artifact .war file to Tomcat Server.'
-                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'vahin', path: '', url: 'http://ec2-54-242-13-86.compute-1.amazonaws.com:8090/')], contextPath: 'MY-APP', war: '**/*.war'
+                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'vahin', path: '', url: 'http://ec2-54-242-13-86.compute-1.amazonaws.com:8090/')], contextPath: 'MY-WEBAPP', war: '**/*.war'
             }
         } 
   

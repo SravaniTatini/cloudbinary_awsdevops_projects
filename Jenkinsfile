@@ -5,63 +5,60 @@ pipeline {
          jdk 'java'
     }
     stages {
-         stage('Stage-0 : Static Code Analysis Using SonarQube') { 
-           steps {
-                sh 'mvn clean verify sonar:sonar'
+        stage('Stage-0 : Clone') { 
+            steps {
+                echo 'This stage clones SC from GITHUB'
+                git branch: 'main', url: 'https://github.com/SravaniTatini/cloudbinary_awsdevops_projects.git'
             }
         }
-        stage('Stage-1 : Clean') { 
+         stage('Stage-1 : Clean') { 
             steps {
+                echo 'This stage cleans the project by removeing old builds.'
                 sh 'mvn clean'
             }
         }
+        
          stage('Stage-2 : Validate') { 
             steps {
+                echo 'This stage Checks if the project is correct.'
                 sh 'mvn validate'
             }
         }
+        
          stage('Stage-3 : Compile') { 
             steps {
+                echo 'This stage Compiles source code into .class files.'
                 sh 'mvn compile'
             }
         }
-         stage('Stage-4 : Test') { 
+
+          stage('Stage-4 : Install') { 
             steps {
-                sh 'mvn test'
+                echo 'This stage .'
+                sh 'mvn install'
             }
         }
-          stage('Stage-5 : Install') { 
+
+        stage('Stage-5 : Package') { 
             steps {
-                sh 'mvn install'
+                echo 'This stage Packages compiled code into a .war.'
+                sh 'mvn package'
             }
         }
           stage('Stage-6 : Verify') { 
             steps {
+                echo 'This stage Runs additional checks to ensure quality. .'
                 sh 'mvn verify'
             }
         }
-          stage('Stage-7 : Package') { 
+          
+          stage('Stage-7 : Deployment') { 
             steps {
-                sh 'mvn package'
-            }
-        }
-           stage('Stage-8 : Deploy an Artifact to Artifactory Manager i.e. Nexus/Jfrog') { 
-            steps {
-                sh 'mvn deploy'
-            }
-        }
-          stage('Stage-9 : Deployment - Deploy a Artifact devops-2.0.0-SNAPSHOT.war file to Tomcat Server') { 
-            steps {
-                sh 'curl -u admin:redhat@123 -T target/**.war "http://54.221.48.136:8080/manager/text/deploy?path=/cbapp&update=true"'
+                echo 'This stage Deploys an Artifact .war file to Tomcat Server.'
+                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'vahin', path: '', url: 'http://ec2-54-242-13-86.compute-1.amazonaws.com:8090/')], contextPath: 'MY-APP', war: '**/*.war'
             }
         } 
   
-          stage('Stage-10 : SmokeTest') { 
-            steps {
-                sh 'curl --retry-delay 10 --retry 5 "http://54.221.48.136:8080/cbapp"'
-            }
-        }
-
-
+          
     }
 }

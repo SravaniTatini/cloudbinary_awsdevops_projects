@@ -43,7 +43,7 @@
           </a>
         <div class="text">
           <h1>Hello Friends!</h1>
-          <h2>This Java Spring web application is created by SRAVANI.</h2>
+          <h2>This web application is created by SRAVANI GUTTA.</h2>
         </div>
       </div>
     </div>

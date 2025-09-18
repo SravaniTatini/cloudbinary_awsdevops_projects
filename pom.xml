@@ -28,13 +28,13 @@
     <repository>
         <id>NexusRepo</id>
         <name>st-repo-release</name>
-        <url>http://54.167.64.33:8081/repository/st-repo-release/</url>
+        <url>http://3.95.239.184:8081/repository/repo-release//</url>
     </repository>
 
     <snapshotRepository>
         <id>NexusRepo</id>
         <name>st-repo-snapshot</name>
-        <url>http://54.167.64.33:8081/repository/st-repo-snapshot/</url>
+        <url>http://3.95.239.184:8081/repository/repo-snapshot/</url>
     </snapshotRepository>
 
 </distributionManagement>

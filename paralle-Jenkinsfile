@@ -61,27 +61,27 @@ pipeline {
                 stage('Lab') {
                     steps {
                         echo 'This stage Deploys on LAB TOMCAT WEB SERVER'
-                       // deploying on LAB TOMCAT WEB SERVER 
+                       deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'vahin', path: '', url: 'http://3.80.204.52:8080/')], contextPath: 'MY-WEBAPP', war: '**/*.war'
                    }
                 }
                 stage('sbox') {
                     steps {
                         echo 'This stage Deploys on SBOX TOMCAT WEB SERVER'
-                       // deploying on SBOX TOMCAT WEB SERVER 
+                        deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'vahin-sbox', path: '', url: 'http://54.90.98.203:8080/')], contextPath: 'MY-WEBAPP', war: '**/*.war'
                    }
                     }
                 
                 stage('UAT') {
                     steps {
                         echo 'This stage Deploys on UAT TOMCAT WEB SERVER'
-                      // deploying on UAT TOMCAT WEB SERVER 
+                       deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'vahin-UAT', path: '', url: 'http://18.208.141.103:8080/')], contextPath: 'MY-WEBAPP', war: '**/*.war' 
                    }
                     }
 					
 					stage('PROD') {
                     steps {
                         echo 'This stage Deploys on PROD TOMCAT WEB SERVER'
-                      // deploying on PROD TOMCAT WEB SERVER 
+                       deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'vahin-PROD', path: '', url: 'http://13.222.182.116:8080/')], contextPath: 'MY-WEBAPP', war: '**/*.war' 
                    }
                     }
                 }

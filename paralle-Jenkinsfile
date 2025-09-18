@@ -1,0 +1,92 @@
+pipeline {
+    agent any 
+    
+    stages {
+        stage('Stage-0 : Clone') { 
+            steps {
+                echo 'This stage clones SC from GITHUB'
+                git branch: 'main', url: 'https://github.com/SravaniTatini/cloudbinary_awsdevops_projects.git'
+            }
+        }
+         stage('Stage-1 : Clean') { 
+            steps {
+                echo 'This stage cleans the project by removeing old builds.'
+                sh 'mvn clean'
+            }
+        }
+        
+         stage('Stage-2 : Validate') { 
+            steps {
+                echo 'This stage Checks if the project is correct.'
+                sh 'mvn validate'
+            }
+        }
+        
+         stage('Stage-3 : Compile') { 
+            steps {
+                echo 'This stage Compiles source code into .class files.'
+                sh 'mvn compile'
+            }
+        }
+
+          stage('Stage-4 : Install') { 
+            steps {
+                echo 'This stage .'
+                sh 'mvn install'
+            }
+        }
+
+        stage('Stage-5 : Package') { 
+            steps {
+                echo 'This stage Packages compiled code into a .war.'
+                sh 'mvn package'
+            }
+        }
+          stage('Stage-6 : Verify') { 
+            steps {
+                echo 'This stage Runs additional checks to ensure quality.'
+                sh 'mvn verify'
+            }
+        }
+        
+          stage('Stage-7 : Deploy') { 
+            steps {
+                echo 'This stage Deploys artifact to Nexus.'
+                sh 'mvn deploy'
+            }
+        }
+          
+          stage('Deploy to Multiple Environments') {
+            parallel {
+                stage('Lab') {
+                    steps {
+                        echo 'This stage Deploys on LAB TOMCAT WEB SERVER'
+                       // deploying on LAB TOMCAT WEB SERVER 
+                   }
+                }
+                stage('sbox') {
+                    steps {
+                        echo 'This stage Deploys on SBOX TOMCAT WEB SERVER'
+                       // deploying on SBOX TOMCAT WEB SERVER 
+                   }
+                    }
+                
+                stage('UAT') {
+                    steps {
+                        echo 'This stage Deploys on UAT TOMCAT WEB SERVER'
+                      // deploying on UAT TOMCAT WEB SERVER 
+                   }
+                    }
+					
+					stage('PROD') {
+                    steps {
+                        echo 'This stage Deploys on PROD TOMCAT WEB SERVER'
+                      // deploying on PROD TOMCAT WEB SERVER 
+                   }
+                    }
+                }
+            }
+  
+          
+    }
+}

@@ -6,7 +6,7 @@
     <version>3.3.6</version>
     <!--<version>9.10.3-SNAPSHOT</version>-->
     <packaging>war</packaging>
-    <name>Cloud Binary - Sample Spring MVC Application</name>
+    <name>Sravani Tatini - Sample Spring MVC Application</name>
 
     <properties>
         <junit.platform.version>1.2.0</junit.platform.version>
@@ -27,14 +27,14 @@
 
     <repository>
         <id>release</id>
-        <name>cb-libs-release-local</name>
-        <url>http://54.144.102.195:8082/artifactory/cb-libs-release-local/</url>
+        <name>st-repo-release</name>
+        <url>http://54.167.64.33:8081/repository/st-repo-release/</url>
     </repository>
 
     <snapshotRepository>
         <id>snapshots</id>
-        <name>cb-libs-snapshots-local</name>
-        <url>http://54.144.102.195:8082/artifactory/cb-libs-snapshots-local/</url>
+        <name>st-repo-snapshot</name>
+        <url>http://54.167.64.33:8081/repository/st-repo-snapshot/</url>
     </snapshotRepository>
 
 </distributionManagement>

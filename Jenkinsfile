@@ -48,8 +48,15 @@ pipeline {
         }
           stage('Stage-6 : Verify') { 
             steps {
-                echo 'This stage Runs additional checks to ensure quality. .'
+                echo 'This stage Runs additional checks to ensure quality.'
                 sh 'mvn verify'
+            }
+        }
+        
+          stage('Stage-7 : Deploy') { 
+            steps {
+                echo 'This stage Deploys artifact to Nexus.'
+                sh 'mvn deploy'
             }
         }
           
